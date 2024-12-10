@@ -1,0 +1,267 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Rejected Applications</title>
+ <link
+  href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Open+Sans:wght@300;400&display=swap"
+  rel="stylesheet">
+ <style>
+  /* General Reset */
+  * {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+  }
+
+  body {
+   font-family: 'Roboto', sans-serif;
+   background: linear-gradient(135deg, #eef2f3, #d7e1ec);
+   display: flex;
+   min-height: 100vh;
+   color: #333;
+  }
+
+  /* Sidebar */
+  .sidebar {
+   width: 250px;
+   height: 100vh;
+   background: linear-gradient(180deg, #4b6cb7, #182848);
+   position: fixed;
+   top: 0;
+   left: 0;
+   display: flex;
+   flex-direction: column;
+   padding: 30px 20px;
+   box-shadow: 2px 0 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .sidebar .title {
+   font-size: 1.8rem;
+   color: #fff;
+   font-weight: 700;
+   margin-bottom: 40px;
+   letter-spacing: 1px;
+   text-align: center;
+   transition: transform 0.3s ease;
+  }
+
+  .sidebar .title:hover {
+   transform: scale(1.05);
+  }
+
+  .sidebar .user-info {
+   color: #dcdcdc;
+   font-size: 1rem;
+   margin-bottom: 50px;
+   font-weight: 400;
+   text-align: center;
+  }
+
+  .sidebar a {
+   color: #dcdcdc;
+   text-decoration: none;
+   font-size: 1.1rem;
+   display: flex;
+   align-items: center;
+   margin: 8px 0;
+   padding: 12px 15px;
+   border-radius: 8px;
+   transition: background-color 0.4s, transform 0.3s;
+  }
+
+  .sidebar a:hover {
+   background-color: #3a5a99;
+   color: #fff;
+   transform: scale(1.05);
+  }
+
+  .sidebar a i {
+   margin-right: 12px;
+  }
+
+  /* Main Content */
+  .main-content {
+   margin-left: 250px;
+   padding: 40px;
+   flex-grow: 1;
+   background: #fff;
+   border-radius: 12px;
+   box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+   animation: fadeIn 0.5s ease;
+  }
+
+  @keyframes fadeIn {
+   from {
+    opacity: 0;
+    transform: translateY(20px);
+   }
+
+   to {
+    opacity: 1;
+    transform: translateY(0);
+   }
+  }
+
+  h2 {
+   color: #4b6cb7;
+   font-size: 2rem;
+   font-weight: 700;
+   margin-bottom: 30px;
+   border-bottom: 2px solid #4b6cb7;
+   padding-bottom: 10px;
+   display: inline-block;
+  }
+
+  .applications-table-container {
+   margin-top: 20px;
+   overflow-x: auto;
+  }
+
+  .applications-table {
+   width: 100%;
+   border-collapse: collapse;
+   border-radius: 12px;
+   overflow: hidden;
+   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .applications-table th,
+  .applications-table td {
+   padding: 14px 20px;
+   text-align: center;
+   border: 1px solid #e5e5e5;
+  }
+
+  .applications-table th {
+   background-color: #4b6cb7;
+   color: white;
+   text-transform: uppercase;
+   letter-spacing: 1px;
+   font-weight: 500;
+  }
+
+  .applications-table td {
+   background-color: #fafafa;
+   transition: background-color 0.3s ease;
+  }
+
+  .applications-table td:hover {
+   background-color: #f0f4ff;
+  }
+
+  .applications-table a {
+   color: #4b6cb7;
+   font-weight: 500;
+   text-decoration: none;
+   transition: color 0.3s ease;
+  }
+
+  .applications-table a:hover {
+   color: #324a78;
+  }
+
+  /* Footer */
+  footer {
+   background-color: #182848;
+   padding: 15px;
+   text-align: center;
+   color: #dcdcdc;
+   font-size: 0.9rem;
+   position: fixed;
+   bottom: 0;
+   width: 100%;
+   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+   .sidebar {
+    width: 200px;
+   }
+
+   .main-content {
+    margin-left: 200px;
+    padding: 30px;
+   }
+
+   h2 {
+    font-size: 1.8rem;
+   }
+  }
+
+  @media (max-width: 576px) {
+   .sidebar {
+    width: 100%;
+    height: auto;
+    padding: 20px;
+   }
+
+   .sidebar a {
+    font-size: 1rem;
+    padding: 12px 18px;
+   }
+
+   .main-content {
+    margin-left: 0;
+    padding: 20px;
+   }
+
+   footer {
+    font-size: 0.8rem;
+   }
+  }
+ </style>
+</head>
+
+<body>
+ <!-- Sidebar -->
+ <div class="sidebar">
+  <div class="title">Admin Dashboard</div>
+  <div class="user-info">Logged in as: Admin</div>
+  <a href="{% url 'admin-dashboard' %}"><i class="fas fa-home"></i> Home</a>
+  <a href="{% url 'update_profile' %}"><i class="fas fa-user"></i> Profile</a>
+  <a href="{% url 'view_users' %}"><i class="fas fa-list"></i> Users</a>
+  <a href="{% url 'approved' %}"><i class="fas fa-cog"></i> Approvals</a>
+  <a href="{% url 'rejestion' %}"><i class="fas fa-cog"></i> Rejections</a>
+  <a href="{% url 'admin-applications' %}"><i class="fas fa-cog"></i> Applications</a>
+  <a href="{% url 'logout_user' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+ </div>
+
+ <!-- Main Content -->
+ <div class="main-content">
+  <h2>Rejected Applications</h2>
+  <div class="applications-table-container">
+   <table class="applications-table">
+    <thead>
+     <tr>
+      <th>Application ID</th>
+      <th>Applicant Name</th>
+      <th>Loan Amount</th>
+      <th>Details</th>
+     </tr>
+    </thead>
+    <tbody>
+     {% for application in applications %}
+     <tr>
+      <td>{{ application.id }}</td>
+      <td>{{ application.fullname }}</td>
+      <td>${{ application.intrest }}</td>
+      <td><a href="#">View Details</a></td>
+     </tr>
+     {% endfor %}
+    </tbody>
+   </table>
+  </div>
+ </div>
+
+ <!-- Footer -->
+ <footer>
+  <p>&copy; 2024 Loan Management System. All rights reserved.</p>
+ </footer>
+</body>
+
+</html>

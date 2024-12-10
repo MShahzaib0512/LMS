@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta name="description"
+  content="Confirmation page for your request to speak with an expert. We will get in touch soon.">
+ <title>Request Submitted</title>
+ <style>
+  /* Basic Styling */
+  body {
+   font-family: Arial, sans-serif;
+   margin: 0;
+   padding: 0;
+   line-height: 1.6;
+   background-color: #f4f4f4;
+  }
+
+  .container {
+   max-width: 800px;
+   margin: 40px auto;
+   padding: 30px;
+   background: #fff;
+   border: 1px solid #ddd;
+   border-radius: 5px;
+   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  h1,
+  h2 {
+   text-align: center;
+   color: #333;
+  }
+
+  .message {
+   text-align: center;
+   margin: 30px 0;
+  }
+
+  .message p {
+   font-size: 1.2rem;
+   color: #555;
+  }
+
+  .cta {
+   text-align: center;
+   margin-top: 30px;
+  }
+
+  .cta a {
+   text-decoration: none;
+   background: #007bff;
+   color: white;
+   padding: 10px 20px;
+   border-radius: 5px;
+   display: inline-block;
+   font-size: 1rem;
+  }
+
+  .cta a:hover {
+   background: #0056b3;
+  }
+
+  .disclaimer {
+   font-size: 0.9em;
+   color: #777;
+   text-align: center;
+   margin-top: 20px;
+  }
+ </style>
+</head>
+
+<body>
+ <div class="container">
+  <!-- Page Header -->
+  <header class="section">
+   <h1>Request Submitted</h1>
+  </header>
+
+  <!-- Confirmation Message -->
+  <section class="message">
+   <p>Hi there! Thank you so much for reaching out to us. We’ve received your request to speak with an expert, and we’re
+    excited to help you out.</p>
+   <p>One of our team members will contact you soon to discuss your needs and answer any questions you might have. We
+    appreciate your patience!</p>
+  </section>
+
+  <!-- Call-to-Action Section -->
+  <section class="cta">
+   <h2>What Would You Like to Do Next?</h2>
+   <a href="{% url 'index' %}">Return to Home</a>
+   <p>or</p>
+   <a href="{% url 'loan_calculator' %}">Calculate another Loan</a>
+  </section>
+
+  <!-- Disclaimer -->
+  <footer class="disclaimer">
+   <p>* Your inquiry is important to us, and we look forward to speaking with you soon.</p>
+  </footer>
+ </div>
+</body>
+
+</html>

@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>User Applications</title>
+ <style>
+  /* Styles remain unchanged */
+ </style>
+</head>
+
+<style>
+ /* General Reset */
+ body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  /* Modern font */
+  background: linear-gradient(to bottom, #f9f9f9, #e9ecef);
+  color: #333;
+  line-height: 1.6;
+ }
+
+ /* Header Section */
+ .header {
+  background: linear-gradient(90deg, #4b6cb7, #182848);
+  padding: 20px 0;
+  text-align: center;
+  color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+ }
+
+ .header h1 {
+  font-size: 2.5rem;
+  margin: 0;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1px;
+ }
+
+ .header h1 span {
+  color: #ffc107;
+  /* Highlighted text color */
+ }
+
+ /* Application Grid */
+ .application-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+  padding: 30px;
+  max-width: 1200px;
+  margin: 30px auto;
+ }
+
+ /* Application Card */
+ .application-card {
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+ }
+
+ .application-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+ }
+
+ .application-header {
+  background: linear-gradient(90deg, #4b6cb7, #182848);
+  color: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  margin-bottom: 20px;
+ }
+
+ .application-header h2 {
+  margin: 0;
+  font-size: 1.8rem;
+ }
+
+ .application-card h2 {
+  margin: 10px 0;
+  font-size: 1rem;
+  color: #fff;
+ }
+
+ .application-card p {
+  margin: 10px 0;
+  font-size: 1rem;
+  color: #555;
+ }
+
+ .application-card h2 strong,
+ .application-card p strong {
+  color: #333;
+ }
+
+ .application-card .button {
+  display: inline-block;
+  text-decoration: none;
+  background: linear-gradient(90deg, #182848, #4b6cb7);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background 0.3s ease, transform 0.2s ease;
+  text-align: center;
+  margin-top: 15px;
+ }
+
+ .application-card .button:hover {
+  background: linear-gradient(90deg, #4b6cb7, #182848);
+  transform: translateY(-3px);
+ }
+
+ /* Modal */
+ .modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.6);
+  /* Semi-transparent background */
+ }
+
+ .modal-content {
+  background: #fff;
+  margin: 8% auto;
+  padding: 25px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.4s ease-in-out;
+ }
+
+ .modal-content .modal-header {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #4b6cb7;
+  border-bottom: 2px solid #e9ecef;
+  padding-bottom: 10px;
+ }
+
+ .modal-content label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: #555;
+ }
+
+ .modal-content input,
+ .modal-content select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+ }
+
+ .modal-content input:focus,
+ .modal-content select:focus {
+  border-color: #4b6cb7;
+  outline: none;
+ }
+
+ .modal-content button {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(90deg, #182848, #4b6cb7);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+ }
+
+ .modal-content button:hover {
+  background: linear-gradient(90deg, #4b6cb7, #182848);
+  transform: translateY(-3px);
+ }
+
+ .close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  color: #555;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: bold;
+  transition: color 0.3s ease;
+ }
+
+ .close:hover {
+  color: #000;
+ }
+
+ /* Animations */
+ @keyframes fadeIn {
+  from {
+   opacity: 0;
+   transform: translateY(-20px);
+  }
+
+  to {
+   opacity: 1;
+   transform: translateY(0);
+  }
+ }
+
+ /* Responsive Design */
+ @media (max-width: 768px) {
+  .application-card {
+   padding: 15px;
+  }
+
+  .application-header h2 {
+   font-size: 1.4rem;
+  }
+
+  .modal-content {
+   width: 95%;
+  }
+ }
+</style>
+
+<body>
+ <div class="header">
+  <h1>Your <span>Applications</span></h1>
+ </div>
+
+ <div class="application-grid">
+  {% for application in applications %}
+  <div class="application-card" id="application-{{ application.id }}">
+   <div class="application-header">
+    <h2>Application #{{ forloop.counter }}</h2>
+   </div>
+   <p><strong>Status:</strong>{{application.status}}</p>
+   <p><strong>Username:</strong> {{ application.user.username }}</p>
+   <p><strong>Full Name:</strong> {{ application.fullname }}</p>
+   <p><strong>Address:</strong> {{ application.address }}</p>
+   <p><strong>Contact:</strong> {{ application.contact }}</p>
+   <p><strong>Email:</strong> {{ application.Email }}</p>
+   <p><strong>CNIC:</strong> {{ application.CNIC }}</p>
+   <p><strong>Employment Status:</strong> {{ application.employment_status }}</p>
+   <p><strong>Monthly Income:</strong> ${{ application.monthly_income }}</p>
+   <p><strong>Organization Name:</strong> {{ application.organization_name }}</p>
+   <p><strong>Loan Amount:</strong> ${{ application.Ammount }}</p>
+   <p><strong>Interest Amount:</strong> ${{ application.intrest }}</p>
+   <p><strong>Loan Purpose:</strong> {{ application.purpose }}</p>
+   <p><strong>Loan Term:</strong> {{ application.duration }} months</p>
+
+   <!-- Buttons -->
+   <a href="#editModal-{{ application.id }}" class="button">Edit Application</a>
+  </div>
+  {% endfor %}
+ </div>
+
+ <!-- Modal for editing -->
+ <!-- Modal for editing -->
+ {% for application in applications %}
+ <div id="editModal-{{ application.id }}" class="modal">
+  <div class="modal-content">
+   <a href="#" class="close">&times;</a>
+   <div class="modal-header">Edit Application</div>
+   <form action="{% url 'update_application' %}" method="POST" class="form-container" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="fullname">Full Name:</label>
+    <input type="text" id="fullname" name="fullname" value="{{ application.fullname }}" required>
+
+    <label for="maritalStatus">Marital Status:</label>
+    <select id="maritalStatus" name="maritalStatus" required>
+     <option value="{{ application.martrial_status }}" selected>{{ application.martrial_status }}</option>
+     <option>Single</option>
+     <option>Married</option>
+     <option>Divorced</option>
+     <option>Widowed</option>
+    </select>
+
+    <label for="address">Address:</label>
+    <input type="text" id="address" name="address" value="{{ application.address }}" required>
+    <input type="hidden" name="applicationID" value="{{ application.id }}">
+
+    <label for="contact">Contact:</label>
+    <input type="text" id="contact" name="contact" value="{{ application.contact }}" required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" value="{{ application.Email }}" required>
+
+    <label for="CNIC">CNIC Number:</label>
+    <input type="text" id="CNIC" name="CNIC" value="{{ application.CNIC }}" required>
+
+    <label for="cnicUpload">Upload CNIC:</label>
+    <!-- Display the current image if it exists -->
+    {% if application.image %}
+    <div>
+     <img src="{{ application.image.url }}" alt="Current CNIC"
+      style="max-width: 150px; max-height: 150px; margin-bottom: 10px;">
+     <p>Current Image: <a href="{{ application.image.url }}" target="_blank">View Image</a></p>
+    </div>
+    {% else %}
+    <p>No image uploaded</p>
+    {% endif %}
+    <input type="file" id="cnicUpload" name="cnicUpload" accept=".jpg, .png, .pdf">
+
+    <label for="employmentStatus">Employment Status:</label>
+    <input type="text" id="employmentStatus" name="employmentStatus" value="{{ application.employment_status }}"
+     required>
+
+    <label for="monthlyIncome">Monthly Income:</label>
+    <input type="number" id="monthlyIncome" name="monthlyIncome" value="{{ application.monthly_income }}" required>
+
+    <label for="organizationName">Organization Name:</label>
+    <input type="text" id="organizationName" name="organizationName" value="{{ application.organization_name }}"
+     required>
+
+    <h3>Loan Details</h3>
+
+    <label for="loanAmount">Loan Amount:</label>
+    <select id="loanAmount" name="loanAmount" required onchange="calculateInterest()">
+     <option value="{{ application.Ammount }}" selected>${{ application.Ammount }}</option>
+     <option value="5000">$5,000</option>
+     <option value="10000">$10,000</option>
+     <option value="15000">$15,000</option>
+     <option value="20000">$20,000</option>
+     <option value="25000">$25,000</option>
+    </select>
+
+    <!-- Loan Term Dropdown -->
+    <label for="loanTerm">Loan Term:</label>
+    <select id="loanTerm" name="loanTerm" required onchange="calculateInterest()">
+     <option value="{{ application.duration }}" disabled selected>Select loan term</option>
+     <option value="6">6 Months</option>
+     <option value="12">12 Months (1 year)</option>
+     <option value="18">18 Months (1.5 years)</option>
+     <option value="24">24 Months (2 years)</option>
+     <option value="36">36 Months (3 years)</option>
+    </select>
+
+    <!-- Interest (Amount Payable after interest) -->
+    <label for="intrest">Amount Payable:</label>
+    <input type="number" id="intrest" name="intrest" required placeholder="Payable amount after interest" readonly>
+
+
+    <label for="loanPurpose">Loan Purpose:</label>
+    <select id="loanPurpose" name="loanPurpose" required>
+     <option value="{{ application.purpose }}" selected>{{ application.purpose }}</option>
+     <option>Home Renovation</option>
+     <option>Medical Expenses</option>
+     <option>Education</option>
+     <option>Debt Consolidation</option>
+     <option>Business</option>
+    </select>
+
+
+    <button type="submit">Save Changes</button>
+   </form>
+  </div>
+ </div>
+ {% endfor %}
+
+ <script>
+  function calculateInterest() {
+   const loanAmount = parseInt(document.getElementById('loanAmount').value); // Ensure integer input
+   const loanTerm = parseInt(document.getElementById('loanTerm').value); // Ensure integer input
+
+   // Ensure that both the loan amount and loan term are selected
+   if (loanAmount && loanTerm) {
+    let annualInterestRate = 0;
+
+    // Define interest rates based on loan term
+    if (loanTerm === 6) {
+     annualInterestRate = 0.05; // 5% for 6 months
+    } else if (loanTerm === 12) {
+     annualInterestRate = 0.07; // 7% for 1 year
+    } else if (loanTerm === 18) {
+     annualInterestRate = 0.09; // 9% for 1.5 years
+    } else if (loanTerm === 24) {
+     annualInterestRate = 0.10; // 10% for 2 years
+    } else if (loanTerm === 36) {
+     annualInterestRate = 0.12; // 12% for 3 years
+    }
+
+    // Calculate the interest
+    const totalInterest = (loanAmount * annualInterestRate * loanTerm) / 12; // Interest calculation for the selected term
+    const totalPayable = loanAmount + totalInterest; // Total amount payable after adding interest
+
+    // Update the interest (amount payable) field with the calculated value
+    document.getElementById('intrest').value = Math.floor(totalPayable); // Display the total payable
+   }
+  }
+
+  // Trigger interest calculation when loan amount or loan term changes
+  document.getElementById('loanAmount').addEventListener('change', calculateInterest);
+  document.getElementById('loanTerm').addEventListener('change', calculateInterest);
+
+  // Call the function once on page load to initialize the interest field
+  document.addEventListener("DOMContentLoaded", function () {
+   calculateInterest(); // Call on page load to initialize the interest value based on the default selection
+  });
+
+ </script>
+</body>
+
+</html>

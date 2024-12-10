@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Use our Loan Calculator to estimate your monthly payments, total interest, and repayment schedule. Plan your loan smartly.">
+  <title>Loan Calculator</title>
+  <!-- Add Animate.css Library -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <style>
+    /* Basic Styling */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1,
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    .section {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input,
+    select,
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+
+    button {
+      background: #007bff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    .results {
+      background: #f9f9f9;
+      padding: 15px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+    }
+
+    .results p {
+      font-weight: bold;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 1rem;
+    }
+
+    table th,
+    table td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: center;
+    }
+
+    table th {
+      background-color: #f4f4f4;
+      font-weight: bold;
+    }
+
+    .cta {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .cta a {
+      text-decoration: none;
+      background: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      display: inline-block;
+    }
+
+    .cta a:hover {
+      background: #0056b3;
+    }
+
+    .disclaimer {
+      font-size: 0.9em;
+      color: #777;
+      text-align: center;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <!-- Page Header with Animation -->
+    <header class="section animate__animated animate__fadeIn">
+      <h1>Loan Calculator</h1>
+      <p>Estimate your loan repayments quickly and easily. Get a clear picture of your monthly payments before applying
+        for your loan.</p>
+    </header>
+
+    <!-- Loan Calculator Tool with Animation -->
+    <section class="section animate__animated animate__fadeInUp">
+      <h2>Calculate Your Loan</h2>
+      <form id="loan-calculator-form">
+        <!-- Loan Type -->
+        <label for="loan-type">Loan Type</label>
+        <select id="loan-type" name="loan-type" required>
+          <option value="personal">Personal Loan</option>
+          <option value="auto">Auto Loan</option>
+          <option value="home">Home Loan</option>
+          <option value="student">Student Loan</option>
+        </select>
+
+        <!-- Loan Amount -->
+        <label for="loan-amount">Loan Amount ($)</label>
+        <select id="loan-amount" name="loan-amount" required>
+          <option value="5000">5,000</option>
+          <option value="10000">10,000</option>
+          <option value="15000">15,000</option>
+          <option value="20000">20,000</option>
+          <option value="25000">25,000</option>
+          <option value="30000">30,000</option>
+          <option value="35000">35,000</option>
+          <option value="40000">40,000</option>
+          <option value="45000">45,000</option>
+          <option value="50000">50,000</option>
+        </select>
+
+        <!-- Interest Rate -->
+        <label for="interest-rate">Interest Rate (%)</label>
+        <input type="text" id="interest-rate" name="interest-rate" readonly placeholder="e.g., 5.5">
+
+        <!-- Loan Term -->
+        <label for="loan-term">Loan Term (Months)</label>
+        <select id="loan-term" name="loan-term" required>
+          <option value="6">6 Months</option>
+          <option value="12">12 Months</option>
+          <option value="18">18 Months</option>
+          <option value="24">24 Months</option>
+          <option value="30">30 Months</option>
+        </select>
+
+        <!-- Repayment Frequency -->
+        <label for="repayment-frequency">Repayment Frequency</label>
+        <select id="repayment-frequency" name="repayment-frequency">
+          <option value="monthly">Monthly</option>
+          <option value="bi-weekly">Bi-Weekly</option>
+        </select>
+
+        <!-- Submit Button -->
+        <button type="submit">Calculate</button>
+      </form>
+    </section>
+
+    <!-- Results Section with Animation -->
+    <section class="section results" id="results-section" style="display:none;">
+      <h2>Your Results</h2>
+      <p><strong>Monthly Payment:</strong> <span id="monthly-payment">$0.00</span></p>
+      <p><strong>Total Interest Paid:</strong> <span id="total-interest">$0.00</span></p>
+      <p><strong>Total Loan Repayment:</strong> <span id="total-repayment">$0.00</span></p>
+      <p><a href="#amortization-schedule">View Amortization Schedule</a></p>
+    </section>
+
+    <!-- Amortization Schedule Section with Animation -->
+    <section id="amortization-schedule" style="display:none;">
+      <h2>Amortization Schedule</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Payment #</th>
+            <th>Payment Amount</th>
+            <th>Interest Paid</th>
+            <th>Principal Paid</th>
+            <th>Remaining Balance</th>
+          </tr>
+        </thead>
+        <tbody id="amortization-schedule-body"></tbody>
+      </table>
+    </section>
+  </div>
+
+  <!-- Call-to-Action Section with Animation -->
+  <section class="cta animate__animated animate__fadeInUp">
+    <h2>Ready to Apply?</h2>
+    <a href="{% url 'login_user' %}">Apply Now</a>
+    <p>or</p>
+    <a href="{% url 'talk_to_expert' %}">Speak to an Expert</a>
+  </section>
+
+  <!-- Disclaimer Section -->
+  <footer class="disclaimer">
+    <p>* The loan calculator provides estimates only. Actual loan terms may vary based on creditworthiness and other
+      factors.</p>
+  </footer>
+
+  <script>
+    // Sample interest rates based on loan terms in months
+    const interestRatesByTerm = {
+      '6': 5.5,   // 6-month term
+      '12': 5.0,  // 12-month term
+      '18': 4.8,  // 18-month term
+      '24': 4.5,  // 24-month term
+      '30': 4.2   // 30-month term
+    };
+
+    // Function to update the interest rate field
+    function updateInterestRate() {
+      const loanTerm = document.getElementById('loan-term').value;
+      const interestRate = interestRatesByTerm[loanTerm] || 0;
+      document.getElementById('interest-rate').value = interestRate.toFixed(2);
+    }
+
+    // Update interest rate on page load
+    document.addEventListener('DOMContentLoaded', function () {
+      updateInterestRate();
+    });
+
+    // Update interest rate when the loan term changes
+    document.getElementById('loan-term').addEventListener('change', updateInterestRate);
+
+    // Form submission handler
+    document.getElementById('loan-calculator-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      // Fetch form values
+      const loanAmount = parseFloat(document.getElementById('loan-amount').value);
+      const interestRate = parseFloat(document.getElementById('interest-rate').value);
+      const loanTerm = parseInt(document.getElementById('loan-term').value);
+      const repaymentFrequency = document.getElementById('repayment-frequency').value;
+
+      // Monthly interest rate and total number of payments
+      const monthlyInterestRate = interestRate / 100 / 12;
+      const numPayments = loanTerm;
+
+      // Calculate monthly payment using loan amortization formula
+      const monthlyPayment = (loanAmount * monthlyInterestRate) /
+        (1 - Math.pow(1 + monthlyInterestRate, -numPayments));
+      const totalRepayment = monthlyPayment * numPayments;
+      const totalInterest = totalRepayment - loanAmount;
+
+      // Show results section
+      document.getElementById('monthly-payment').innerText = `$${monthlyPayment.toFixed(2)}`;
+      document.getElementById('total-interest').innerText = `$${totalInterest.toFixed(2)}`;
+      document.getElementById('total-repayment').innerText = `$${totalRepayment.toFixed(2)}`;
+      document.getElementById('results-section').style.display = 'block';
+
+      // Generate amortization schedule (simplified)
+      const amortizationScheduleBody = document.getElementById('amortization-schedule-body');
+      let balance = loanAmount;
+      amortizationScheduleBody.innerHTML = '';  // Clear previous schedule
+
+      for (let i = 1; i <= numPayments; i++) {
+        const interestPaid = balance * monthlyInterestRate;
+        const principalPaid = monthlyPayment - interestPaid;
+        balance -= principalPaid;
+
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${i}</td>
+          <td>$${monthlyPayment.toFixed(2)}</td>
+          <td>$${interestPaid.toFixed(2)}</td>
+          <td>$${principalPaid.toFixed(2)}</td>
+          <td>$${balance.toFixed(2)}</td>
+        `;
+        amortizationScheduleBody.appendChild(row);
+      }
+
+      document.getElementById('amortization-schedule').style.display = 'block';
+    });
+  </script>
+</body>
+
+</html>

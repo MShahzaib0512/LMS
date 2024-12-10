@@ -1,0 +1,402 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta name="description" content="Loan Management System - Fast, Secure, and Affordable Loans Tailored to Your Needs.">
+ <meta name="keywords" content="Loans, Personal Loans, Home Loans, Auto Loans, Business Loans, Loan Calculator">
+ <link
+  href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Open+Sans:wght@300;400&display=swap"
+  rel="stylesheet">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+ <title>Loan Management System</title>
+</head>
+
+<style>
+ /* General Reset */
+ * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+ }
+
+ body {
+  font-family: 'Roboto', serif;
+  color: #333;
+  background: #f8f9fa;
+  line-height: 1.6;
+ }
+
+ /* Header */
+ .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background-color: #182848;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+ }
+
+ .logo img {
+  max-height: 50px;
+ }
+
+ .nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+ }
+
+ .nav ul li {
+  display: inline;
+ }
+
+ .nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 8px 15px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+ }
+
+ .nav ul li a:hover {
+  background-color: #4b6cb7;
+ }
+
+ /* Hero Section */
+ .hero {
+  text-align: center;
+  padding: 100px 20px;
+  color: #fff;
+  background: linear-gradient(rgba(24, 40, 72, 0.8), rgba(24, 40, 72, 0.8)),
+  url("{% static 'images/loan.jpg' %}") no-repeat center center/cover;
+ }
+
+ .hero h1 {
+  font-size: 2.8rem;
+  margin-bottom: 15px;
+ }
+
+ .hero p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+ }
+
+ .hero-cta a {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 0 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.3s;
+ }
+
+ .btn-primary {
+  background-color: #4b6cb7;
+  color: #fff;
+ }
+
+ .btn-primary:hover {
+  background-color: #3a5a99;
+ }
+
+ .btn-secondary {
+  background-color: #f4b400;
+  color: #fff;
+ }
+
+ .btn-secondary:hover {
+  background-color: #d39200;
+ }
+
+ /* Features Section */
+ .features {
+  padding: 60px 20px;
+  text-align: center;
+  background: #ffffff;
+ }
+
+ .features h2 {
+  font-size: 2rem;
+  margin-bottom: 40px;
+  color: #4b6cb7;
+ }
+
+ .features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+ }
+
+ .feature {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+ }
+
+ .feature i {
+  font-size: 2.5rem;
+  color: #4b6cb7;
+  margin-bottom: 15px;
+ }
+
+ .feature h3 {
+  font-size: 1.5rem;
+  color: #182848;
+  margin-bottom: 10px;
+ }
+
+ /* Loan Products */
+ .loan-products {
+  padding: 60px 20px;
+  background: #f8f9fa;
+  text-align: center;
+ }
+
+ .loan-products h2 {
+  font-size: 2rem;
+  margin-bottom: 40px;
+  color: #182848;
+ }
+
+ .product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+ }
+
+ .product {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s;
+ }
+
+ .product:hover {
+  transform: translateY(-10px);
+ }
+
+ .product h3 {
+  font-size: 1.5rem;
+  color: #4b6cb7;
+  margin-bottom: 10px;
+ }
+
+ /* How It Works Section */
+ .how-it-works {
+  padding: 60px 20px;
+  background: #ffffff;
+  text-align: center;
+ }
+
+ .how-it-works h2 {
+  font-size: 2rem;
+  color: #182848;
+  margin-bottom: 40px;
+  position: relative;
+ }
+
+ .how-it-works h2::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: #4b6cb7;
+  margin: 10px auto 0;
+ }
+
+ .steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+ }
+
+ .step {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+ }
+
+ .step:hover {
+  transform: translateY(-10px);
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+ }
+
+ .step i {
+  font-size: 3rem;
+  color: #4b6cb7;
+  margin-bottom: 15px;
+ }
+
+ .step h3 {
+  font-size: 1.5rem;
+  color: #182848;
+  margin-bottom: 10px;
+ }
+
+ .step p {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.6;
+ }
+
+ /* Testimonials */
+ .testimonials {
+  padding: 60px 20px;
+  background: #ffffff;
+  text-align: center;
+ }
+
+ .testimonials h2 {
+  font-size: 2rem;
+  margin-bottom: 40px;
+  color: #4b6cb7;
+ }
+
+ .testimonial-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+ }
+
+ .testimonial {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s;
+ }
+
+ .testimonial:hover {
+  transform: translateY(-10px);
+ }
+
+ .testimonial p {
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.6;
+  margin-bottom: 10px;
+ }
+
+ .testimonial .name {
+  font-weight: bold;
+  color: #182848;
+ }
+</style>
+
+<body>
+ <header class="header animate__animated animate__fadeIn">
+  <div class="logo">
+   <img src="{% static 'images/logo.jpg' %}" alt="Loan Management System">
+  </div>
+  <nav class="nav">
+   <ul>
+    <li><a href="{% url 'loan_products' %}">Loan Products</a></li>
+    <li><a href="{% url 'aboutus' %}">About Us</a></li>
+    <li><a href="{% url 'contactus' %}">Contact Us</a></li>
+    <li><a href="{% url 'login_user' %}">Login/Sign Up</a></li>
+   </ul>
+  </nav>
+ </header>
+
+ <section class="hero">
+  <h1 class="animate__animated animate__fadeIn">Get the Best Loan Options for Your Needs</h1>
+  <p class="animate__animated animate__fadeIn animate__delay-1s">Fast, secure, and affordable loans tailored to your
+   goals.</p>
+  <div class="hero-cta">
+   <a href="{% url 'loan_products' %}" class="btn-primary animate__animated animate__fadeIn animate__delay-2s">View Loan
+    Options</a>
+   <a href="{% url 'contactus' %}" class="btn-secondary animate__animated animate__fadeIn animate__delay-2s">Contact
+    Us</a>
+  </div>
+ </section>
+
+ <section class="features animate__animated animate__fadeIn animate__delay-3s" id="features">
+  <h2>Our Key Features</h2>
+  <div class="features-grid">
+   <div class="feature animate__animated animate__fadeIn animate__delay-4s">
+    <i class="fas fa-check-circle"></i>
+    <h3>Fast Processing</h3>
+    <p>We offer fast loan approval and disbursement.</p>
+   </div>
+   <div class="feature animate__animated animate__fadeIn animate__delay-5s">
+    <i class="fas fa-lock"></i>
+    <h3>Secure</h3>
+    <p>Your personal data is protected with top-notch security measures.</p>
+   </div>
+   <div class="feature animate__animated animate__fadeIn animate__delay-6s">
+    <i class="fas fa-thumbs-up"></i>
+    <h3>Easy to Use</h3>
+    <p>Our platform is user-friendly and easy to navigate.</p>
+   </div>
+  </div>
+ </section>
+
+ <section class="loan-products animate__animated animate__fadeIn animate__delay-7s" id="loan-products">
+  <h2>Our Loan Products</h2>
+  <div class="product-list">
+   <div class="product animate__animated animate__fadeIn animate__delay-8s">
+    <h3>Personal Loans</h3>
+    <p>Loans for any personal needs with flexible terms.</p>
+   </div>
+   <div class="product animate__animated animate__fadeIn animate__delay-9s">
+    <h3>Home Loans</h3>
+    <p>Low-interest loans to help you buy your dream home.</p>
+   </div>
+   <div class="product animate__animated animate__fadeIn animate__delay-10s">
+    <h3>Auto Loans</h3>
+    <p>Get the car you need with affordable monthly payments.</p>
+   </div>
+  </div>
+ </section>
+
+ <section class="how-it-works animate__animated animate__fadeIn animate__delay-11s" id="how-it-works">
+  <h2>How It Works</h2>
+  <div class="steps">
+   <div class="step animate__animated animate__fadeIn animate__delay-12s">
+    <i class="fas fa-sign-in-alt"></i>
+    <h3>Sign Up</h3>
+    <p>Create your account in a few easy steps.</p>
+   </div>
+   <div class="step animate__animated animate__fadeIn animate__delay-13s">
+    <i class="fas fa-file-alt"></i>
+    <h3>Apply for Loan</h3>
+    <p>Fill out the application form for your desired loan.</p>
+   </div>
+   <div class="step animate__animated animate__fadeIn animate__delay-14s">
+    <i class="fas fa-check"></i>
+    <h3>Get Approved</h3>
+    <p>Get fast approval and receive your funds.</p>
+   </div>
+  </div>
+ </section>
+
+ <section class="testimonials animate__animated animate__fadeIn animate__delay-15s" id="testimonials">
+  <h2>What Our Clients Say</h2>
+  <div class="testimonial-list">
+   <div class="testimonial animate__animated animate__fadeIn animate__delay-16s">
+    <p>"This loan system is so easy to use. I got my loan in no time!"</p>
+    <p class="name">- John Doe</p>
+   </div>
+   <div class="testimonial animate__animated animate__fadeIn animate__delay-17s">
+    <p>"Excellent service and fast processing. Highly recommend!"</p>
+    <p class="name">- Jane Smith</p>
+   </div>
+  </div>
+ </section>
+</body>
+
+</html>

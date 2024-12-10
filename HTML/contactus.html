@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta name="description"
+  content="Contact us for assistance with loan inquiries, customer support, or any other questions. We’re here to help!">
+ <title>Contact Us</title>
+ <style>
+  body {
+   font-family: Arial, sans-serif;
+   margin: 0;
+   padding: 0;
+   background-color: #f4f4f4;
+   color: #333;
+  }
+
+  .container {
+   max-width: 900px;
+   margin: 50px auto;
+   padding: 20px;
+   background: #fff;
+   border: 1px solid #ddd;
+   border-radius: 5px;
+   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  h1,
+  h2 {
+   color: #007bff;
+   text-align: center;
+  }
+
+  p {
+   margin-bottom: 15px;
+  }
+
+  .contact-info,
+  .contact-form,
+  .social-media {
+   margin-bottom: 30px;
+  }
+
+  .contact-info ul {
+   list-style-type: none;
+   padding: 0;
+  }
+
+  .contact-info li {
+   margin: 10px 0;
+  }
+
+  .contact-form input,
+  .contact-form textarea,
+  .contact-form select,
+  .contact-form button {
+   width: 100%;
+   padding: 10px;
+   margin: 5px 0;
+   border-radius: 5px;
+   border: 1px solid #ddd;
+  }
+
+  .contact-form button {
+   background-color: #007bff;
+   color: white;
+   border: none;
+   cursor: pointer;
+  }
+
+  .contact-form button:hover {
+   background-color: #0056b3;
+  }
+
+  .cta {
+   text-align: center;
+   margin-top: 20px;
+  }
+
+  .cta a {
+   text-decoration: none;
+   background: #007bff;
+   color: white;
+   padding: 10px 20px;
+   border-radius: 5px;
+   display: inline-block;
+   font-size: 1rem;
+  }
+
+  .cta a:hover {
+   background: #0056b3;
+  }
+
+  footer {
+   text-align: center;
+   margin-top: 30px;
+   font-size: 0.9em;
+   color: #777;
+  }
+ </style>
+</head>
+
+<body>
+ <div class="container">
+  <!-- Page Header -->
+  <header>
+   <h1>Contact Us</h1>
+   <p>We’re here to help! Get in touch with our team for assistance with loan inquiries, customer support, or any other
+    questions.</p>
+  </header>
+
+  <!-- Contact Information Section -->
+  <section class="contact-info">
+   <h2>Contact Information</h2>
+   <ul>
+    <li><strong>Phone Number:</strong> +1-800-123-4567</li>
+    <li><strong>Email Address:</strong> <a href="mailto:support@company.com">support@company.com</a></li>
+    <li><strong>Physical Address:</strong> 123 Finance Street, New York, NY 10001</li>
+    <li><strong>Business Hours:</strong> Mon-Fri: 9 AM to 6 PM EST</li>
+   </ul>
+  </section>
+
+  <!-- Contact Form -->
+  <section class="contact-form">
+   <h2>Send Us a Message</h2>
+   <form action="submit_form.php" method="post">
+    <input type="text" name="name" placeholder="Full Name" required>
+    <input type="email" name="email" placeholder="Email Address" required>
+    <input type="tel" name="phone" placeholder="Phone Number (optional)">
+    <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+    <select name="inquiry-type">
+     <option value="loan-inquiry">Loan Inquiry</option>
+     <option value="customer-support">Customer Support</option>
+     <option value="general-inquiry">General Inquiry</option>
+    </select>
+    <button type="submit">Send Message</button>
+   </form>
+   <p class="success-message" style="display:none; color: green;">Thank you! We will get back to you within 24 hours.
+   </p>
+  </section>
+
+  <!-- Social Media Links -->
+  <section class="social-media">
+   <h2>Follow Us</h2>
+   <p>Connect with us on our social media channels:</p>
+   <a href="https://facebook.com" target="_blank">Facebook</a> |
+   <a href="https://twitter.com" target="_blank">Twitter</a> |
+   <a href="https://linkedin.com" target="_blank">LinkedIn</a> |
+   <a href="https://instagram.com" target="_blank">Instagram</a>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="cta">
+   <p>Have questions or need support? Our team is ready to assist you. <a href="#contact-form">Contact us now!</a></p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+   <p>Need more help? Visit our <a href="#faq">FAQ page</a> for quick answers to common questions.</p>
+  </footer>
+ </div>
+</body>
+
+</html>

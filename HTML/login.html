@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta name="description" content="Login page for accessing your account. Secure and easy to use.">
+ <title>Login</title>
+
+ <!-- Add Animate.css Library -->
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+ <style>
+  /* Basic Styling */
+  body {
+   font-family: Arial, sans-serif;
+   margin: 0;
+   padding: 0;
+   line-height: 1.6;
+   background-color: #f4f4f4;
+  }
+
+  .container {
+   max-width: 400px;
+   margin: 100px auto;
+   padding: 30px;
+   background: #fff;
+   border: 1px solid #ddd;
+   border-radius: 5px;
+   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  h1 {
+   text-align: center;
+   color: #333;
+   margin-bottom: 20px;
+  }
+
+  .form-group {
+   margin-bottom: 20px;
+  }
+
+  label {
+   display: block;
+   font-weight: bold;
+   margin-bottom: 5px;
+  }
+
+  input {
+   width: 100%;
+   padding: 10px;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+   font-size: 1rem;
+  }
+
+  button {
+   width: 100%;
+   padding: 10px;
+   background: #007bff;
+   color: white;
+   border: none;
+   border-radius: 5px;
+   font-size: 1rem;
+   cursor: pointer;
+   margin-top: 10px;
+  }
+
+  button:hover {
+   background: #0056b3;
+  }
+
+  .cta {
+   text-align: center;
+   margin-top: 20px;
+  }
+
+  .cta a {
+   text-decoration: none;
+   color: #007bff;
+   font-size: 0.9rem;
+  }
+
+  .cta a:hover {
+   text-decoration: underline;
+  }
+
+  /* Error Styling */
+  .error-message {
+   color: red;
+   font-size: 0.9rem;
+   margin-top: 5px;
+   display: block;
+  }
+
+  input.error {
+   border: 2px solid red;
+   animation: vibrate 0.3s ease-in-out;
+  }
+
+  /* Vibration Animation */
+  @keyframes vibrate {
+
+   0%,
+   100% {
+    transform: translateX(0);
+   }
+
+   25% {
+    transform: translateX(-3px);
+   }
+
+   50% {
+    transform: translateX(3px);
+   }
+
+   75% {
+    transform: translateX(-3px);
+   }
+  }
+ </style>
+</head>
+
+<body>
+ <div class="container animate__animated animate__fadeIn">
+  <!-- Page Header -->
+  <h1 class="animate__animated animate__fadeIn">Login to Your Account</h1>
+
+  <!-- Login Form -->
+  <form action="{% url 'login_user' %}" method="POST" id="login-form">
+   {% csrf_token %}
+   <div class="form-group">
+    <label for="username">Username</label>
+    <input type="text" id="username" name="username" placeholder="Enter your username">
+   </div>
+
+   <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" placeholder="Enter your password">
+   </div>
+
+   <button type="submit" class="animate__animated animate__bounceIn">Login</button>
+  </form>
+
+  <!-- Call-to-Action Section -->
+  <section class="cta animate__animated animate__fadeIn animate__delay-1s">
+   <p>Don't have an account? <a href="{% url 'register' %}">Sign up here</a></p>
+   <p><a href="#forgot-password">Forgot your password?</a></p>
+  </section>
+ </div>
+
+ <script>
+  const form = document.getElementById('login-form');
+
+  form.addEventListener('submit', (e) => {
+   e.preventDefault(); // Prevent form submission for demo purposes
+   const username = document.getElementById('username');
+   const password = document.getElementById('password');
+
+   // Example validation
+   let hasError = false;
+
+   if (username.value.trim() === '') {
+    showError(username, 'Username is required');
+    hasError = true;
+   } else {
+    clearError(username);
+   }
+
+   if (password.value.trim() === '') {
+    showError(password, 'Password is required');
+    hasError = true;
+   } else {
+    clearError(password);
+   }
+
+   if (!hasError) {
+    // Submit form if no errors
+    form.submit();
+   }
+  });
+
+  function showError(input, message) {
+   input.classList.add('error');
+
+   // Add error message if not present
+   let errorSpan = input.nextElementSibling;
+   if (!errorSpan || !errorSpan.classList.contains('error-message')) {
+    errorSpan = document.createElement('span');
+    errorSpan.className = 'error-message';
+    input.parentNode.appendChild(errorSpan);
+   }
+   errorSpan.textContent = message;
+
+   // Remove error class after animation
+   setTimeout(() => {
+    input.classList.remove('error');
+   }, 300); // Match animation duration
+  }
+
+  function clearError(input) {
+   input.classList.remove('error');
+   const errorSpan = input.nextElementSibling;
+   if (errorSpan && errorSpan.classList.contains('error-message')) {
+    errorSpan.remove();
+   }
+  }
+ </script>
+</body>
+
+</html>

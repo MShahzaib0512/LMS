@@ -1,0 +1,372 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Loan Products</title>
+</head>
+<style>
+ /* Header */
+ .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background-color: #182848;
+  /* Dark blue background */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+ }
+
+ /* Logo */
+ .logo img {
+  max-height: 50px;
+  transition: transform 0.3s ease-in-out;
+ }
+
+ .logo img:hover {
+  transform: scale(1.1);
+ }
+
+ /* Navigation Menu */
+ .nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+ }
+
+ .nav ul li {
+  display: inline;
+ }
+
+ /* Links */
+ .nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 10px 15px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-size: 1rem;
+ }
+
+ .nav ul li a:hover {
+  background-color: #4b6cb7;
+  /* Matches other hover buttons */
+  color: #fff;
+  box-shadow: 0 4px 8px rgba(75, 108, 183, 0.2);
+ }
+
+ /* Active State for Navigation Links */
+ .nav ul li a.active {
+  background-color: #4b6cb7;
+  color: #fff;
+ }
+
+ /* Responsive Navigation Menu */
+ @media (max-width: 768px) {
+  .header {
+   flex-direction: column;
+   padding: 10px 20px;
+  }
+
+  .nav ul {
+   flex-direction: column;
+   gap: 10px;
+   text-align: center;
+  }
+
+  .nav ul li a {
+   font-size: 0.9rem;
+   padding: 8px 10px;
+  }
+ }
+
+
+
+ /* Loan Products Section */
+ #loan-products {
+  padding: 50px 20px;
+  background-color: #f8f9fa;
+  text-align: center;
+ }
+
+ #loan-products h2 {
+  font-size: 2.5rem;
+  color: #4b6cb7;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  font-weight: 700;
+ }
+
+ .product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+ }
+
+ .product-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: left;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+ }
+
+ .product-card h3 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 10px;
+  text-transform: capitalize;
+ }
+
+ .product-card p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 15px;
+  line-height: 1.6;
+ }
+
+ .product-card ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
+ }
+
+ .product-card ul li {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 5px;
+  position: relative;
+  padding-left: 20px;
+ }
+
+ .product-card ul li::before {
+  content: "✔";
+  color: #4b6cb7;
+  position: absolute;
+  left: 0;
+  font-size: 0.9rem;
+  top: 50%;
+  transform: translateY(-50%);
+ }
+
+ .product-card a.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #4b6cb7;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  text-align: center;
+  transition: background-color 0.3s ease, transform 0.3s;
+ }
+
+ .product-card a.btn:hover {
+  background-color: #3a5a99;
+  transform: scale(1.05);
+ }
+
+ .product-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+ }
+
+ /* Responsive Design */
+ @media (max-width: 768px) {
+  #loan-products {
+   padding: 30px 10px;
+  }
+
+  #loan-products h2 {
+   font-size: 2rem;
+  }
+
+  .product-card {
+   padding: 15px;
+  }
+
+  .product-card h3 {
+   font-size: 1.5rem;
+  }
+
+  .product-card p,
+  .product-card ul li {
+   font-size: 0.9rem;
+  }
+
+  .product-card a.btn {
+   font-size: 0.9rem;
+  }
+ }
+</style>
+
+<body>
+ <header class="header">
+  <div class="logo">
+   <a href="#"><img src="{% static 'images/logo.jpg' %}" alt="LoanManage Logo"></a>
+  </div>
+  <nav class="nav">
+   <ul>
+    <li><a href="{% url 'loan_products' %}">Loan Products</a></li>
+    <li><a href="{% url 'aboutus' %}">About Us</a></li>
+    <li><a href="{% url 'contactus' %}">Contact Us</a></li>
+    <li><a href="{% url 'login_user' %}">Login/Sign Up</a></li>
+   </ul>
+  </nav>
+ </header>
+ <section id="loan-products" class="loan-products">
+  <h2>Explore Our Loan Products</h2>
+  <div class="product-grid">
+   <!-- Personal Loan -->
+   <div class="product-card">
+    <h3>Personal Loan</h3>
+    <p>A flexible loan for various personal needs like debt consolidation, medical expenses, or home improvement.</p>
+    <ul>
+     <li>No collateral required</li>
+     <li>Quick approval process</li>
+     <li>Flexible repayment terms</li>
+     <li>Fixed interest rates</li>
+    </ul>
+    <p><strong>Ideal for:</strong> Individuals needing immediate financial support.</p>
+    <a href="{% url 'login_user' %}" class="btn">Apply Now</a>
+   </div>
+
+   <!-- Home Loan -->
+   <div class="product-card">
+    <h3>Home Loan (Mortgage)</h3>
+    <p>Finance your dream home or refinance your property with competitive rates and flexible terms.</p>
+    <ul>
+     <li>Lower interest rates</li>
+     <li>Long-term repayment options</li>
+     <li>Loan-to-value (LTV) ratio options</li>
+     <li>For purchase or refinancing</li>
+    </ul>
+    <p><strong>Ideal for:</strong> Homebuyers and property owners.</p>
+    <a href="{% url 'login_user' %}" class="btn">Learn More</a>
+   </div>
+
+   <!-- Auto Loan -->
+   <div class="product-card">
+    <h3>Auto Loan</h3>
+    <p>Drive your dream car with financing options for new or used vehicles.</p>
+    <ul>
+     <li>Flexible loan terms</li>
+     <li>Competitive interest rates</li>
+     <li>Finance new or pre-owned vehicles</li>
+     <li>Low or zero down payment options</li>
+    </ul>
+    <p><strong>Ideal for:</strong> Individuals looking to buy a car with affordable payments.</p>
+    <a href="{% url 'login_user' %}" class="btn">Apply Now</a>
+   </div>
+
+   <!-- Business Loan -->
+   <div class="product-card">
+    <h3>Business Loan</h3>
+    <p>Secure funding to expand your business, purchase equipment, or manage operations.</p>
+    <ul>
+     <li>Secured or unsecured options</li>
+     <li>Loan amounts based on revenue</li>
+     <li>Flexible repayment terms</li>
+     <li>Growth and operational funding</li>
+    </ul>
+    <p><strong>Ideal for:</strong> Entrepreneurs and businesses needing capital.</p>
+    <a href="{% url 'login_user' %}" class="btn">Learn More</a>
+   </div>
+
+   <!-- Student Loan -->
+   <div class="product-card">
+    <h3>Student Loan</h3>
+    <p>Invest in your education with loans that cover tuition, books, and living expenses.</p>
+    <ul>
+     <li>Deferred payments until graduation</li>
+     <li>Fixed or variable interest rates</li>
+     <li>Flexible repayment options</li>
+     <li>Tuition and educational expense coverage</li>
+    </ul>
+    <p><strong>Ideal for:</strong> Students pursuing higher education.</p>
+    <a href="{% url 'login_user' %}" class="btn">Apply Now</a>
+   </div>
+
+   <!-- Debt Consolidation Loan -->
+   <div class="product-card">
+    <h3>Debt Consolidation Loan</h3>
+    <p>Simplify your finances by combining multiple debts into a single lower-interest payment.</p>
+    <ul>
+     <li>Lower interest rates</li>
+     <li>Single monthly payment</li>
+     <li>Helps improve credit score</li>
+    </ul>
+    <p><strong>Ideal for:</strong> Individuals managing multiple debts.</p>
+    <a href="{% url 'login_user' %}" class="btn">Learn More</a>
+   </div>
+
+   <!-- Payday Loan -->
+   <div class="product-card">
+    <h3>Payday Loan</h3>
+    <p>Get quick cash for emergencies with short-term, high-interest loans.</p>
+    <ul>
+     <li>Fast approval (within 24 hours)</li>
+     <li>Short repayment period</li>
+     <li>Smaller loan amounts</li>
+    </ul>
+    <p><strong>Ideal for:</strong> Urgent short-term financial needs.</p>
+    <a href="{% url 'login_user' %}" class="btn">Apply Now</a>
+   </div>
+
+   <!-- Home Equity Loan / HELOC -->
+   <div class="product-card">
+    <h3>Home Equity Loan / HELOC</h3>
+    <p>Leverage your home’s equity for large expenses or as a revolving credit line.</p>
+    <ul>
+     <li>Lower interest rates</li>
+     <li>Fixed or flexible repayment terms</li>
+     <li>Funds for home renovations or emergencies</li>
+    </ul>
+    <p><strong>Ideal for:</strong> Homeowners with equity.</p>
+    <a href="{% url 'login_user' %}" class="btn">Learn More</a>
+   </div>
+
+   <!-- Secured Loan -->
+   <div class="product-card">
+    <h3>Secured Loan</h3>
+    <p>Borrow larger amounts at lower interest rates by providing collateral.</p>
+    <ul>
+     <li>Lower interest rates</li>
+     <li>Flexible loan terms</li>
+     <li>For individuals with valuable assets</li>
+    </ul>
+    <p><strong>Ideal for:</strong> Asset-backed borrowers.</p>
+    <a href="{% url 'login_user' %}" class="btn">Apply Now</a>
+   </div>
+
+   <!-- Insurance Loan -->
+   <div class="product-card">
+    <h3>Insurance Loan</h3>
+    <p>Access the cash value of your life insurance policy for immediate financial needs.</p>
+    <ul>
+     <li>Low interest rates</li>
+     <li>No credit checks</li>
+     <li>Flexible repayment terms</li>
+    </ul>
+    <p><strong>Ideal for:</strong> Policyholders needing liquidity.</p>
+    <a href="{% url 'login_user' %}" class="btn">Learn More</a>
+   </div>
+  </div>
+ </section>
+
+</body>
+
+</html>

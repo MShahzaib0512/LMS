@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+ <title>Loan Application - Loan Management System</title>
+ <style>
+  /* General Reset */
+  /* General Reset */
+  body {
+   margin: 0;
+   font-family: Arial, sans-serif;
+   background-color: #f4f7fc;
+   /* Light background */
+   color: #333;
+   line-height: 1.6;
+  }
+
+  /* Header Section */
+  .header {
+   background-color: #182848;
+   padding: 15px 0;
+   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .header .container {
+   max-width: 1200px;
+   margin: 0 auto;
+   display: flex;
+   justify-content: center;
+  }
+
+  .navbar {
+   display: flex;
+   gap: 20px;
+  }
+
+  .navbar a {
+   color: #fff;
+   text-decoration: none;
+   font-size: 1rem;
+   font-weight: 500;
+   padding: 8px 15px;
+   border-radius: 5px;
+   transition: background-color 0.3s ease;
+  }
+
+  .navbar a:hover {
+   background-color: #4b6cb7;
+  }
+
+  /* Form Container */
+  .form-container {
+   max-width: 800px;
+   margin: 40px auto;
+   padding: 20px;
+   background-color: #fff;
+   border-radius: 10px;
+   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .form-container h2 {
+   text-align: center;
+   color: #4b6cb7;
+   font-size: 2rem;
+   margin-bottom: 20px;
+   text-transform: uppercase;
+  }
+
+  .form-container h3 {
+   color: #333;
+   font-size: 1.5rem;
+   margin-top: 30px;
+   margin-bottom: 15px;
+  }
+
+  .form-container label {
+   display: block;
+   margin-bottom: 8px;
+   font-weight: 600;
+   color: #555;
+  }
+
+  .form-container input,
+  .form-container select {
+   width: 100%;
+   padding: 10px;
+   margin-bottom: 15px;
+   border: 1px solid #ccc;
+   border-radius: 5px;
+   font-size: 1rem;
+   box-sizing: border-box;
+   transition: border-color 0.3s ease;
+  }
+
+  .form-container input:focus,
+  .form-container select:focus {
+   border-color: #4b6cb7;
+   outline: none;
+  }
+
+  .form-container input[type="file"] {
+   padding: 5px;
+  }
+
+  .form-container .terms {
+   margin: 20px 0;
+   font-size: 0.9rem;
+   color: #555;
+  }
+
+  .form-container .terms label a {
+   color: #4b6cb7;
+   text-decoration: none;
+  }
+
+  .form-container .terms label a:hover {
+   text-decoration: underline;
+  }
+
+  /* Submit Button */
+  .form-container button {
+   width: 100%;
+   padding: 12px;
+   background-color: #4b6cb7;
+   color: #fff;
+   border: none;
+   border-radius: 5px;
+   font-size: 1.2rem;
+   font-weight: 600;
+   cursor: pointer;
+   transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+
+  .form-container button:hover {
+   background-color: #3a5a99;
+   transform: translateY(-2px);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+   .form-container {
+    padding: 15px;
+   }
+
+   .form-container h2 {
+    font-size: 1.8rem;
+   }
+
+   .form-container h3 {
+    font-size: 1.3rem;
+   }
+
+   .form-container button {
+    font-size: 1rem;
+   }
+  }
+ </style>
+</head>
+
+<body>
+
+ <!-- Header Section -->
+ <header class="header">
+  <div class="container">
+   <nav class="navbar">
+    <a href="{% url 'dashboard' %}">Home</a>
+    <a href="{% url 'loan_products' %}">Loan Products</a>
+    <a href="{% url 'loan_calculator' %}">Loan Calculator</a>
+    <a href="{% url 'talk_to_expert' %}">Contact</a>
+   </nav>
+  </div>
+ </header>
+
+ <!-- Form Container -->
+ <div class="form-container">
+  <h2>Loan Application Form</h2>
+  <form action="{% url 'application_form' %}" method="post" enctype="multipart/form-data">
+   {% csrf_token %}
+   <!-- Personal Information -->
+   <label for="fullName">Full Name:</label>
+   <input type="text" id="fullName" name="fullName" required placeholder="Enter your full name">
+
+   <label for="maritalStatus">Marital Status:</label>
+   <select id="maritalStatus" name="maritalStatus" required>
+    <option value="" disabled selected>Select your marital status</option>
+    <option>Single</option>
+    <option>Married</option>
+    <option>Divorced</option>
+    <option>Widowed</option>
+   </select>
+
+   <label for="address">Address:</label>
+   <input type="text" id="address" name="address" required placeholder="Enter your address">
+
+   <label for="contact">Contact Number:</label>
+   <input type="tel" id="contact" name="contact" required placeholder="e.g., +123456789">
+
+   <label for="CNIC">CNIC Number:</label>
+   <input type="number" id="CNIC" name="CNIC" required placeholder="Enter 13 digit CNIC number">
+
+   <label for="EmailC">Email Address:</label>
+   <input type="text" id="Email" name="Email" required placeholder="Enter valid email address">
+
+   <!-- Documents Upload -->
+   <label for="cnicUpload">Upload CNIC:</label>
+   <input type="file" id="cnicUpload" name="cnicUpload" accept=".jpg, .png, .pdf" required>
+
+   <!-- Employment and Income Details -->
+   <h3>Employment and Income Details</h3>
+   <label for="employmentStatus">Employment Status:</label>
+   <select id="employmentStatus" name="employmentStatus" required>
+    <option value="" disabled selected>Select employment status</option>
+    <option>Employed</option>
+    <option>Self-Employed</option>
+    <option>Unemployed</option>
+    <option>Student</option>
+    <option>Retired</option>
+   </select>
+
+   <label for="organization">Organization Name:</label>
+   <input type="text" id="income" name="organization" required placeholder="name of the organization">
+
+   <label for="income">Monthly Income:</label>
+   <input type="number" id="income" name="income" required placeholder="Enter monthly income in USD">
+
+   <!-- Loan Details -->
+   <h3>Loan Details</h3>
+
+   <label for="loanAmount">Loan Amount:</label>
+   <select id="loanAmount" name="loanAmount" required onchange="calculateInterest()">
+    <option value="" disabled selected>Select desired loan amount</option>
+    <option value="5000">$5,000</option>
+    <option value="10000">$10,000</option>
+    <option value="15000">$15,000</option>
+    <option value="20000">$20,000</option>
+    <option value="25000">$25,000</option>
+   </select>
+
+   <label for="intrest">Amount Payable:</label>
+   <input type="number" id="intrest" name="intrest" required placeholder="Payable amount after interest" readonly>
+
+   <label for="loanPurpose">Loan Purpose:</label>
+   <select id="loanPurpose" name="loanPurpose" required>
+    <option value="" disabled selected>Select loan purpose</option>
+    <option>Home Renovation</option>
+    <option>Medical Expenses</option>
+    <option>Education</option>
+    <option>Debt Consolidation</option>
+    <option>Business</option>
+   </select>
+
+   <label for="loanTerm">Loan Term:</label>
+   <select id="loanTerm" name="loanTerm" required onchange="calculateInterest()">
+    <option value="" disabled selected>Select loan term</option>
+    <option value="6">6 Months</option>
+    <option value="12">12 Months (1 year)</option>
+    <option value="18">18 Months (1.5 year)</option>
+    <option value="24">24 Months (2 years)</option>
+    <option value="36">36 Months (3 years)</option>
+   </select>
+
+   <script>
+    function calculateInterest() {
+     const loanAmount = parseInt(document.getElementById('loanAmount').value); // Ensure integer input
+     const loanTerm = parseInt(document.getElementById('loanTerm').value); // Ensure integer input
+
+     if (loanAmount && loanTerm) {
+      let annualInterestRate = 0;
+
+      // Define interest rates based on loan term
+      if (loanTerm === 6) {
+       annualInterestRate = 0.05; // 5% for 6 months
+      } else if (loanTerm === 12) {
+       annualInterestRate = 0.07; // 7% for 1 year
+      } else if (loanTerm === 18) {
+       annualInterestRate = 0.09; // 9% for 1.5 years
+      } else if (loanTerm === 24) {
+       annualInterestRate = 0.10; // 10% for 2 years
+      } else if (loanTerm === 36) {
+       annualInterestRate = 0.12; // 12% for 3 years
+      }
+
+      // Calculate the interest
+      const totalInterest = (loanAmount * annualInterestRate * loanTerm) / 12; // Interest calculation for the selected term
+      const totalPayable = loanAmount + totalInterest; // Total amount payable
+
+      // Display the calculated total payable amount as an integer
+      document.getElementById('intrest').value = Math.floor(totalPayable); // Store as integer (rounded)
+     }
+    }
+   </script>
+
+   <!-- Terms and Agreement -->
+
+   <button type="submit">Apply for Loan</button>
+  </form>
+ </div>
+
+</body>
+
+</html>

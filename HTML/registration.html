@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta name="description" content="Registration page to create a new account. Simple and secure.">
+ <title>Register</title>
+ <style>
+  /* General Reset */
+  body {
+   margin: 0;
+   font-family: Arial, sans-serif;
+   background-color: #f4f7fc;
+   color: #333;
+  }
+
+  /* Container */
+  .container {
+   max-width: 600px;
+   margin: 50px auto;
+   background: #fff;
+   border-radius: 10px;
+   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+   padding: 30px;
+  }
+
+  /* Page Header */
+  .container h1 {
+   font-size: 2rem;
+   text-align: center;
+   color: #4b6cb7;
+   margin-bottom: 20px;
+  }
+
+  /* Form Styling */
+  form {
+   width: 100%;
+  }
+
+  .form-group {
+   margin-bottom: 20px;
+  }
+
+  .form-group label {
+   display: block;
+   margin-bottom: 5px;
+   font-weight: bold;
+   color: #555;
+  }
+
+  .form-group input {
+   width: 100%;
+   padding: 10px;
+   font-size: 1rem;
+   border: 1px solid #ccc;
+   border-radius: 5px;
+   outline: none;
+   transition: border-color 0.3s ease;
+  }
+
+  .form-group input:focus {
+   border-color: #4b6cb7;
+  }
+
+  /* Error Messages */
+  .error {
+   color: #d9534f;
+   font-size: 0.9rem;
+   margin-top: 5px;
+   display: block;
+  }
+
+  /* Submit Button */
+  button[type="submit"] {
+   width: 100%;
+   background-color: #4b6cb7;
+   color: #fff;
+   padding: 12px;
+   border: none;
+   border-radius: 5px;
+   font-size: 1.2rem;
+   font-weight: bold;
+   cursor: pointer;
+   transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+
+  button[type="submit"]:hover {
+   background-color: #3a5a99;
+   transform: translateY(-2px);
+  }
+
+  /* Vibrate Animation */
+  @keyframes vibrate {
+   0% {
+    transform: translateX(0);
+   }
+
+   25% {
+    transform: translateX(-5px);
+   }
+
+   50% {
+    transform: translateX(5px);
+   }
+
+   75% {
+    transform: translateX(-5px);
+   }
+
+   100% {
+    transform: translateX(5px);
+   }
+  }
+
+  .vibrate {
+   animation: vibrate 0.3s ease forwards;
+  }
+ </style>
+</head>
+
+<body>
+ <div class="container">
+  <!-- Page Header -->
+  <h1>Register for an Account</h1>
+
+  <!-- Registration Form -->
+  <form id="registration-form" method="POST" action="{% url 'register' %}" onsubmit="return validateForm()">
+   {% csrf_token %}
+   <div class="form-group">
+    <label for="username">Username</label>
+    <input type="text" id="username" name="username" placeholder="Enter your username"
+     value="{{ request.POST.username }}">
+    <span id="usernameError" class="error"></span>
+   </div>
+
+   <div class="form-group">
+    <label for="firstName">First Name</label>
+    <input type="text" id="firstName" name="firstName" placeholder="Enter your first name"
+     value="{{ request.POST.firstName }}">
+    <span id="firstNameError" class="error"></span>
+   </div>
+
+   <div class="form-group">
+    <label for="lastName">Last Name</label>
+    <input type="text" id="lastName" name="lastName" placeholder="Enter your last name"
+     value="{{ request.POST.lastName }}">
+    <span id="lastNameError" class="error"></span>
+   </div>
+
+   <div class="form-group">
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" placeholder="Enter your email" value="{{ request.POST.email }}">
+    <span id="emailError" class="error"></span>
+   </div>
+
+   <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" placeholder="Create a password">
+    <span id="passwordError" class="error"></span>
+   </div>
+
+   <div class="form-group">
+    <label for="confirmPassword">Confirm Password</label>
+    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password">
+    <span id="confirmPasswordError" class="error"></span>
+   </div>
+
+   <button type="submit">Register</button>
+  </form>
+ </div>
+
+ <script>
+  function validateForm() {
+   let isValid = true;
+
+   // Clear previous error messages
+   document.querySelectorAll(".error").forEach(el => el.textContent = "");
+   document.querySelectorAll(".form-group input").forEach(input => input.classList.remove("vibrate"));
+
+   // Get form elements
+   const username = document.getElementById("username");
+   const firstName = document.getElementById("firstName");
+   const lastName = document.getElementById("lastName");
+   const email = document.getElementById("email");
+   const password = document.getElementById("password");
+   const confirmPassword = document.getElementById("confirmPassword");
+
+   // Validate each field and display error messages if needed
+   if (username.value.trim() === "") {
+    document.getElementById("usernameError").textContent = "Username is required.";
+    username.classList.add("vibrate");
+    isValid = false;
+   }
+
+   if (firstName.value.trim() === "") {
+    document.getElementById("firstNameError").textContent = "First Name is required.";
+    firstName.classList.add("vibrate");
+    isValid = false;
+   }
+
+   if (lastName.value.trim() === "") {
+    document.getElementById("lastNameError").textContent = "Last Name is required.";
+    lastName.classList.add("vibrate");
+    isValid = false;
+   }
+
+   if (email.value.trim() === "") {
+    document.getElementById("emailError").textContent = "Email is required.";
+    email.classList.add("vibrate");
+    isValid = false;
+   }
+
+   if (password.value.trim() === "") {
+    document.getElementById("passwordError").textContent = "Password is required.";
+    password.classList.add("vibrate");
+    isValid = false;
+   }
+
+   if (confirmPassword.value.trim() === "") {
+    document.getElementById("confirmPasswordError").textContent = "Please confirm your password.";
+    confirmPassword.classList.add("vibrate");
+    isValid = false;
+   } else if (confirmPassword.value !== password.value) {
+    document.getElementById("confirmPasswordError").textContent = "Passwords do not match.";
+    confirmPassword.classList.add("vibrate");
+    isValid = false;
+   }
+
+   return isValid;
+  }
+ </script>
+</body>
+
+</html>
