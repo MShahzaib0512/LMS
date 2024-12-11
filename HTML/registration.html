@@ -90,6 +90,53 @@
    transform: translateY(-2px);
   }
 
+  .message {
+   padding: 10px 20px;
+   margin-bottom: 15px;
+   border-radius: 8px;
+   font-size: 1rem;
+   font-weight: 600;
+   color: #fff;
+   transition: background 0.3s ease;
+  }
+
+  .message.success {
+   background-color: #d4edda;
+   /* Light green */
+   border-left: 5px solid #28a745;
+   /* Darker green */
+   color: #155724;
+   /* Dark green text */
+  }
+
+  .message.error {
+   background-color: #f8d7da;
+   /* Light red */
+   border-left: 5px solid #dc3545;
+   /* Darker red */
+   color: #721c24;
+   /* Dark red text */
+  }
+
+  .message.info {
+   background-color: #d1ecf1;
+   /* Light blue */
+   border-left: 5px solid #17a2b8;
+   /* Darker blue */
+   color: #0c5460;
+   /* Dark blue text */
+  }
+
+  .message.warning {
+   background-color: #fff3cd;
+   /* Light yellow */
+   border-left: 5px solid #ffc107;
+   /* Darker yellow */
+   color: #856404;
+   /* Dark yellow text */
+  }
+
+
   /* Vibrate Animation */
   @keyframes vibrate {
    0% {
@@ -123,6 +170,13 @@
  <div class="container">
   <!-- Page Header -->
   <h1>Register for an Account</h1>
+  {% if messages %}
+  {% for message in messages %}
+  <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+   {{ message }}
+  </div>
+  {% endfor %}
+  {% endif %}
 
   <!-- Registration Form -->
   <form id="registration-form" method="POST" action="{% url 'register' %}" onsubmit="return validateForm()">
