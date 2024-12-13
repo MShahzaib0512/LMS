@@ -1,13 +1,21 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from .models import *
 from django.db.models import Sum
-from django.core.mail import send_mail
 from django.contrib import messages
-from django.conf import settings
-from .tasks import send_email_background
+from .tasks import send_email_background, send_password_reset_email
+
+# FOR CUSTOM EMAIL VIEW
+from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
+from django.urls import reverse_lazy
+
+#  for generating token and the url to send it to the user for updating password
+
+from django.utils.http import urlsafe_base64_encode , urlsafe_base64_decode
+from django.utils.encoding import force_bytes , force_str
+from django.contrib.auth.tokens import default_token_generator
+from django.urls import reverse 
 
 def index(request):
   return render(request, "index.html")
@@ -110,7 +118,7 @@ def register(request):
             elif passw != confirm_password:
                 messages.error(request, "Two password fields must match")
                 return redirect('register')
-            elif uname.isalnum():
+            elif not uname.isalnum():
                 messages.info(request, "Username should only contain letters and numbers")
                 return redirect('register')
             else:
@@ -289,7 +297,6 @@ def approved(request):
       messages.error(f"An error occurred: {str(e)}")
       return redirect(approved)
 
-
 def rejestion(request):
     try:
         applications = Loan.objects.filter(status="rejected")
@@ -312,3 +319,68 @@ def aboutus(request):
 
 def contactus(request):
   return render(request, 'contactus.html')
+
+# password reset or forget custome view 
+
+def password_reset(request):
+    try:
+        if request.method == "POST":
+            email = request.POST.get('email', None)
+            print(email)
+            if not User.objects.filter(email=email).exists():
+                messages.error(request, "No user is associated with this email address.")
+                return render(request, 'reset/password_reset_form.html')  # Re-render the form with error
+            
+        return PasswordResetView.as_view(
+            template_name='reset/password_reset_form.html',
+            email_template_name='reset/password_reset_email.html',
+            success_url=reverse_lazy('password_reset_done')
+        )(request)
+    except Exception as e:
+        messages.error(request, f"An error occurred: {str(e)}")
+        return redirect('password_reset')
+
+def password_reset_done(request):
+    try:
+        return PasswordResetDoneView.as_view(
+            template_name='reset/password_reset_done.html'
+        )(request)
+    except Exception as e:
+        messages.error(request, f"An error occurred: {str(e)}")
+        return redirect('password_reset_done')
+
+def password_reset_confirm(request, uidb64, token):
+    try:
+        return PasswordResetConfirmView.as_view(
+            template_name='reset/password_reset_confirm.html',
+            success_url=reverse_lazy('password_reset_complete')
+        )(request, uidb64=uidb64, token=token)
+    except Exception as e:
+        messages.error(request, f"An error occurred: {str(e)}")
+        return redirect('password_reset_confirm')
+
+def password_reset_complete(request):
+    try:
+        return PasswordResetCompleteView.as_view(
+            template_name='reset/password_reset_complete.html'
+        )(request)
+    except Exception as e:
+        messages.error(request, f"An error occurred: {str(e)}")
+        return redirect('password_reset_complete')
+    
+def initiate_password_reset(request):
+    email = request.user.email
+    try:
+        user = User.objects.get(email=email)
+        token = default_token_generator.make_token(user)
+        uid = urlsafe_base64_encode(force_bytes(user.pk))
+        reset_url = request.build_absolute_uri(reverse('password_reset_confirm', args=[uid, token]))
+        
+        # Send password reset email
+        send_password_reset_email(user_email=email, reset_url=reset_url)
+        
+        return render(request, 'update_profile.html',{'message_sending_mail':"An eamil is sent to you for confirmation please check your gmail for updating your password", 'validate_message':True})
+    except User.DoesNotExist:
+        return render(request, 'update_profile.html', {
+            'error': "No user found with this email address."
+        })

@@ -25,6 +25,17 @@ urlpatterns = [
     path('talk_to_expert', talk_to_expert, name='talk_to_expert'),
     path('aboutus', aboutus, name='aboutus'),
     path('contactus', contactus, name='contactus'),
+    
+    # password reset or forget urls
+    
+    path('password_reset/', password_reset, name='password_reset'),
+    path('password_reset/done/', password_reset_done, name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', password_reset_confirm, name='password_reset_confirm'),
+    path('reset/done/', password_reset_complete, name='password_reset_complete'),
+    
+    # update password 
+    
+    path('initiate_password_reset',initiate_password_reset,name='initiate_password_reset')
 
 ]
 if settings.DEBUG:

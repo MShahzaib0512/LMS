@@ -119,11 +119,14 @@ CSRF_TRUSTED_ORIGINS = ['https://d8e5-119-154-197-128.ngrok-free.app']
 
 # email
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'shahzaibkhan112299@gmail.com'
-EMAIL_HOST_PASSWORD = 'jkby txzh qfwi zezb'
+EMAIL_HOST_PASSWORD = 'dhya vvek gxcp mlbd'  # Use the app-specific password here
 EMAIL_PORT = 587
+DEFAULT_FROM_EMAIL = 'shahzaibkhan112299@gmail.com'
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
